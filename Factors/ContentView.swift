@@ -24,6 +24,10 @@ struct ContentView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
+                
+                Section(header: Text("Which multiplication table do you want to practice?")) {
+                    Stepper("\(multiplicationTable)", value: $multiplicationTable, in: 1...12)
+                }
             }
             .navigationTitle("Factors")
         }
