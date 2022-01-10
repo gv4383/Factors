@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct QuestionsView: View {
+    @State private var userInput = ""
+    @State private var currentQuestion = 0
+    
     let selectedNumberOfQuestions: Int
     let multiplicationTable: Int
     let questionList: [Int]
@@ -23,10 +26,33 @@ struct QuestionsView: View {
         }
     }
     
+    func checkAnswer(firstNumber: Int, secondNumber: Int, userInput: Int) {
+        guard userInput == firstNumber * secondNumber else {
+            print("Wrong answer! Try again...")
+            return
+        }
+        
+        print("Correct!")
+        self.userInput = ""
+        
+        guard currentQuestion + 1 < questionList.count else {
+            print("No more questions!")
+            return
+        }
+        
+        self.currentQuestion += 1
+    }
+    
     var body: some View {
         VStack {
-            Text("Selected number of questions: \(selectedNumberOfQuestions)")
-            Text("Multiplication table: \(multiplicationTable)")
+            Text("\(multiplicationTable) x \(questionList[currentQuestion])")
+            
+            TextField("Type your answer here", text: $userInput)
+                .keyboardType(.numberPad)
+            
+            Button("Submit") {
+                checkAnswer(firstNumber: multiplicationTable, secondNumber: questionList[currentQuestion], userInput: Int(userInput) ?? 0)
+            }
         }
     }
 }
