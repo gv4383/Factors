@@ -11,7 +11,7 @@ import SwiftUI
 struct FactorsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ConfigView()
         }
     }
 }
