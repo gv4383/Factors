@@ -11,6 +11,8 @@ final class QuestionsViewModel: ObservableObject {
     
     @Published var userInput = ""
     @Published var currentQuestion = 0
+    @Published var alertTitle = ""
+    @Published var alertMessage = ""
     @Published var showingAlert = false
     
     func checkAnswer(firstNumber: Int,
@@ -19,20 +21,22 @@ final class QuestionsViewModel: ObservableObject {
         questionList: [Int]
     ) {
         self.userInput = ""
-        guard userInput == firstNumber * secondNumber else {
-            showingAlert = true
+        
+        if userInput != firstNumber * secondNumber {
+            alertTitle = "Wrong"
+            alertMessage = "Wrong answer! Try again..."
+        } else {
+            alertTitle = "Correct"
+            alertMessage = "Your answer was correct!"
             
-            return
+            if currentQuestion + 1 >= questionList.count {
+                alertTitle = "Done"
+                alertMessage = "You have completed all of your questions!\n\nPlease go back to the main page to practice again."
+            } else {
+                currentQuestion += 1
+            }
         }
         
-        print("Correct!")
-        self.userInput = ""
-        
-        guard currentQuestion + 1 < questionList.count else {
-            print("No more questions!")
-            return
-        }
-        
-        self.currentQuestion += 1
+        showingAlert = true
     }
 }

@@ -33,7 +33,11 @@ struct QuestionsView: View {
             }
         }
         .alert(isPresented: $viewModel.showingAlert) {
-            Alert(title: Text("Wrong"), message: Text("Wrong answer! Try again..."), dismissButton: .default(Text("Continue")))
+            Alert(
+                title: Text(viewModel.alertTitle),
+                message: Text(viewModel.alertMessage),
+                dismissButton: .default(Text("Continue"))
+            )
         }
     }
     
