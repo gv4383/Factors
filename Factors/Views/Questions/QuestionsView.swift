@@ -16,20 +16,23 @@ struct QuestionsView: View {
     let questionList: [Int]
     
     var body: some View {
-        VStack {
-            Text("\(multiplicationTable) x \(questionList[viewModel.currentQuestion])")
+        Form {
+            Section {
+                Text("\(multiplicationTable) x \(questionList[viewModel.currentQuestion])")
+                
+                TextField("Type your answer here", text: $viewModel.userInput)
+                    .keyboardType(.numberPad)
+            }
             
-            TextField("Type your answer here", text: $viewModel.userInput)
-                .keyboardType(.numberPad)
-                .textFieldStyle(.roundedBorder)
-            
-            Button("Submit") {
-                viewModel.checkAnswer(
-                    firstNumber: multiplicationTable,
-                    secondNumber: questionList[viewModel.currentQuestion],
-                    userInput: Int(viewModel.userInput) ?? 0,
-                    questionList: questionList
-                )
+            Section {
+                Button("Submit") {
+                    viewModel.checkAnswer(
+                        firstNumber: multiplicationTable,
+                        secondNumber: questionList[viewModel.currentQuestion],
+                        userInput: Int(viewModel.userInput) ?? 0,
+                        questionList: questionList
+                    )
+                }
             }
         }
         .alert(isPresented: $viewModel.showingAlert) {
@@ -55,6 +58,6 @@ struct QuestionsView: View {
 
 struct QuestionsView_Previews: PreviewProvider {
     static var previews: some View {
-        QuestionsView(selectedNumberOfQuestions: 2, multiplicationTable: 5)
+        QuestionsView(selectedNumberOfQuestions: 5, multiplicationTable: 5)
     }
 }

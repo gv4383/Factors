@@ -9,8 +9,8 @@ import Foundation
 
 final class ConfigViewModel: ObservableObject {
     
-    @Published var selectedNumberOfQuestions = 1
+    @Published var selectedNumberOfQuestions = 5
     @Published var multiplicationTable = 1
     
-    let numberOfQuestions = [1, 5, 10, 20]
+    let numberOfQuestions = [5, 10, 20]
 }
